@@ -1,8 +1,8 @@
 {
-  "name": "haoqinchen-live2dapi", // npm包名（建议唯一，不能和已有包冲突，推荐加自己前缀）
-  "version": "1.0.0",             // 版本号，首次发布可用1.0.0
-  "description": "看板娘模型资源文件", // 描述
-  "main": "index.js",             // 主入口文件，若你的包只是资源，可以写一个简单的 index.js 或忽略
+  "name": "haoqinchen-live2dapi", 
+  "version": "1.0.0",             
+  "description": "看板娘模型资源文件", 
+  "main": "index.js",             
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,7 +16,7 @@
     "api",
     "assets"
   ],
-  "author": "HaoqinChen",          // 作者
+  "author": "HaoqinChen",          
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/HaoqinChen/live2d_api/issues"
