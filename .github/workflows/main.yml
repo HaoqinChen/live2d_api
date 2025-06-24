@@ -1,0 +1,36 @@
+name: Auto Publish to NPM
+
+on:
+  push:
+    branches:
+      - master   # 或你自己的主分支
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org/'
+
+      - name: Auto bump version (patch)
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          npm version patch --no-git-tag-version
+
+      - name: Publish to npm
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Commit bumped version
+        run: |
+          git add package.json package-lock.json
+          git commit -m "ci: bump version [skip ci]" || echo "No changes to commit"
+          git push
