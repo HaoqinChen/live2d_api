@@ -1,0 +1,45 @@
+name: Bump version, push tag, and publish to npm
+
+on:
+  push:
+    branches:
+      - master  # 或你的主分支
+
+jobs:
+  bump-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org/'
+
+      # 1. 自动递增 patch 版本号
+      - name: Bump patch version
+        run: |
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global user.name "${{ github.actor }}"
+          npm version patch --no-git-tag-version
+
+      # 2. Commit 递增的版本号
+      - name: Commit version bump
+        run: |
+          git add package.json package-lock.json
+          git commit -m "ci: bump version [skip ci]" || echo "No changes to commit"
+          git push
+
+      # 3. 打 tag 并推送
+      - name: Git tag
+        run: |
+          TAG="v$(node -p "require('./package.json').version")"
+          git tag $TAG
+          git push origin $TAG
+
+      # 4. 发布到 npm
+      - name: Publish to npm
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
