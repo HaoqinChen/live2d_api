@@ -1,8 +1,8 @@
 {
-  "name": "haoqinchen-live2dapi", 
-  "version": "1.0.0",             
-  "description": "看板娘模型资源文件", 
-  "main": "index.js",             
+  "name": "haoqinchen-live2dapi",
+  "version": "1.0.1",
+  "description": "看板娘模型资源文件",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,7 +16,7 @@
     "api",
     "assets"
   ],
-  "author": "HaoqinChen",          
+  "author": "HaoqinChen",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/HaoqinChen/live2d_api/issues"
